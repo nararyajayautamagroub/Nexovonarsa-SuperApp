@@ -97,4 +97,4 @@ This project is for lawful, consent-based use. Security modules should remain de
 
 ## Version
 
-Web MVP: **0.4.1**. Features explicitly marked as demos or planned are not fully integrated live services.
+Web MVP: **0.4.2**. Features explicitly marked as demos or planned are not fully integrated live services.
