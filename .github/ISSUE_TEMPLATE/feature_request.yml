@@ -1,0 +1,47 @@
+name: Permintaan fitur
+description: Usulkan fitur baru untuk Nexovonarsa SuperApp
+title: "[FEATURE] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: "Jangan kirim token, password, data pribadi, atau kunci API."
+  - type: input
+    id: module
+    attributes:
+      label: Modul terkait
+      placeholder: Contoh: Developer Tools
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Masalah yang ingin diselesaikan
+      description: Jelaskan kebutuhan nyata pengguna.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Solusi yang diusulkan
+      description: Cara kerja fitur dan hasil yang diharapkan.
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioritas
+      options:
+        - P3 - Rendah
+        - P2 - Normal
+        - P1 - Tinggi
+        - P0 - Mendesak
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Konfirmasi
+      options:
+        - label: Fitur ini menghormati privasi, izin, hukum, dan ketentuan layanan.
+          required: true
