@@ -10,6 +10,10 @@ Responsive web MVP for learning, entertainment discovery, games, security educat
 - **Status page** (`status.html`): polls the public GitHub Actions API every 60 seconds to show recent workflow runs. This reflects workflow state, not full production uptime.
 - **Automated checks**: GitHub Actions runs the static-site checker and Playwright browser tests on pushes to `main` and pull requests targeting `main`; screenshot artifacts are uploaded by CI.
 
+## Real-time data integration plan
+
+The ten-scraper architecture, source authorization rules, freshness/provenance contract, and production release checklist are documented in [`docs/REALTIME_DATA_10_SCRAPERS.md`](docs/REALTIME_DATA_10_SCRAPERS.md). The ten entries are adapter roles, **not live sources already connected**. The static site alone cannot provide secure server-side scraping or live AI.
+
 ## Important limitations
 
 This is a static web prototype, not a production-ready service.
