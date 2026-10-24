@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101426"><title>Status Sistem | Nexovonarsa SuperApp</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#141b30;--line:#2b3553;--text:#f4f6ff;--muted:#a8b1cc;--accent:#ff4f7b;--good:#53d6a2;--warn:#ffbf69}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,sans-serif}.wrap{max-width:850px;margin:auto;padding:24px}.top,.row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.top a{color:#ff92ad}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;margin:14px 0}.muted{color:var(--muted)}.badge{border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:12px}.good{color:var(--good)}.warn{color:var(--warn)}button{background:#ff4f7b;color:white;border:0;border-radius:10px;padding:10px 14px;font:inherit;cursor:pointer}.small{font-size:12px}.run{padding:12px 0;border-bottom:1px solid var(--line)}.run:last-child{border-bottom:0}
+</style></head><body><main class="wrap">
+<header class="top"><div><h1>Nexovonarsa SuperApp</h1><p class="muted">Status sistem dan pemeriksaan CI dari GitHub</p></div><a href="index.html">← Kembali ke beranda</a></header>
+<section class="card"><div class="row"><h2>GitHub Actions</h2><span id="state" class="badge">Memuat…</span></div><p id="summary" class="muted">Mengambil data terbaru dari GitHub API publik.</p><p class="small muted">Diperbarui: <time id="updated">—</time> · penyegaran otomatis setiap 60 detik.</p><button id="refresh">Perbarui sekarang</button></section>
+<section class="card"><h2>Workflow terbaru</h2><div id="runs" class="muted">Memuat riwayat workflow…</div></section>
+<section class="card"><h2>Batas akurasi</h2><p>Data di halaman ini adalah status workflow GitHub Actions yang tersedia secara publik, bukan bukti bahwa semua fitur aplikasi, API pihak ketiga, pembayaran, atau server produksi sehat. Jika GitHub API gagal diakses, status akan ditandai tidak tersedia, bukan dianggap berhasil.</p></section>
+<footer class="muted small">Sumber: GitHub REST API · <a href="https://github.com/nararyajayautamagroub/Nexovonarsa-SuperApp/actions" style="color:#ff92ad">Buka Actions</a></footer>
+</main><script>
+const API='https://api.github.com/repos/nararyajayautamagroub/Nexovonarsa-SuperApp/actions/runs?per_page=8';
+const $=id=>document.getElementById(id);
+function date(v){if(!v)return 'Waktu tidak tersedia';return new Date(v).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short',timeZone:'Asia/Jakarta'})+' WIB'}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function load(){ $('refresh').disabled=true;$('state').textContent='Memuat…';try{
+ const res=await fetch(API,{headers:{Accept:'application/vnd.github+json'},cache:'no-store'});if(!res.ok)throw Error('GitHub API HTTP '+res.status);
+ const data=await res.json();const runs=data.workflow_runs||[];const latest=runs[0];
+ $('state').textContent=latest?(latest.status==='completed'?(latest.conclusion==='success'?'CI berhasil':'CI '+latest.conclusion):'Workflow berjalan'):'Belum ada workflow';
+ $('state').className='badge '+(latest?.status==='completed'&&latest?.conclusion==='success'?'good':latest?.status==='completed'?'warn':'');
+ $('summary').textContent=latest?'Run terakhir: '+latest.name+' · '+latest.status+(latest.conclusion?' / '+latest.conclusion:'')+' · '+date(latest.updated_at):'Belum ada data workflow.';
+ $('runs').innerHTML=runs.length?runs.map(r=>'<div class="run"><div class="row"><strong>'+esc(r.name)+'</strong><span class="badge '+(r.conclusion==='success'?'good':r.conclusion==='failure'?'warn':'')+'">'+esc(r.status==='completed'?r.conclusion:r.status)+'</span></div><div class="small muted">'+esc(r.display_title)+' · '+esc(r.head_branch)+' · '+esc(date(r.updated_at))+'</div><a href="'+esc(r.html_url)+'" target="_blank" rel="noopener noreferrer" style="color:#ff92ad">Detail run ↗</a></div>').join(''):'Tidak ada run yang tersedia.';
+ $('updated').textContent=date(new Date().toISOString());
+ }catch(e){$('state').textContent='Data tidak tersedia';$('state').className='badge warn';$('summary').textContent='Tidak bisa membaca GitHub API saat ini: '+e.message;$('runs').textContent='Riwayat workflow tidak dapat dimuat. Coba lagi nanti.';$('updated').textContent=date(new Date().toISOString());}
+ finally{$('refresh').disabled=false}}
+$('refresh').addEventListener('click',load);load();setInterval(load,60000);
+</script></body></html>
