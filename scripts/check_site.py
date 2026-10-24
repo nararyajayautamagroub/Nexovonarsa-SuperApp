@@ -4,7 +4,7 @@ import re
 import subprocess
 import tempfile
 
-FILES = ("index.html", "store.html")
+FILES = ("index.html", "store.html", "status.html")
 
 class Check(HTMLParser):
     def __init__(self):
