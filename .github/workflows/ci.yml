@@ -23,6 +23,8 @@ jobs:
           node-version: "22"
       - name: Check HTML and JavaScript
         run: python scripts/check_site.py
+      - name: Validate real-time scraper integration contract
+        run: python scripts/validate_scraper_contract.py
       - name: Install browser test dependencies
         run: |
           npm init -y
