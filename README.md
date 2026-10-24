@@ -1,13 +1,13 @@
 # Nexovonarsa SuperApp
 
-A responsive web MVP for a multi-purpose portal covering learning, entertainment discovery, games, communication utilities, security education, and productivity.
+A responsive web MVP for learning, entertainment discovery, games, security education, productivity, and a digital service store.
 
 ## Current status
 
-- **Web MVP:** `index.html` is a standalone responsive interface.
+- **Home portal:** `index.html` is a standalone responsive interface with feature search and categories.\n- **Store prototype:** `store.html` adds a redesigned responsive storefront, searchable service catalog, functional cart, checkout form, generated demo transaction ID, 10-minute browser countdown, WhatsApp deep-link demo, and AI assistant placeholder.
 - **Catalog:** Search and category filters work in the browser.
 - **Interactive demos:** Local notes, basic phone-number format validation, demo study prompt, and sample bug-report generation.
-- **Not production-ready:** External services, authentication, persistent database, APK packaging, AI, streaming, and live monitoring are not connected yet.
+- **Not production-ready:** QRIS is a visual placeholder only; no payment is collected or verified. AI replies are demo text. WhatsApp uses a browser deep link, not an automated confirmation system. No backend, authentication, persistent database, payment gateway, webhook, live service APIs, APK packaging, or production monitoring is connected.
 
 ## Feature catalog
 
@@ -43,7 +43,7 @@ A responsive web MVP for a multi-purpose portal covering learning, entertainment
 
 ## Run locally
 
-Open `index.html` in a modern browser. No build step is required for this prototype.
+Open `index.html` in a modern browser. The home page links to `store.html`. No build step is required for this static prototype.
 
 ## Deploy as a GitHub Pages site
 
@@ -67,4 +67,4 @@ This project is for lawful, consent-based use. It does not implement DDoS tools,
 
 ## Version
 
-Web MVP: **0.1.0**. Feature labels describe prototypes or plans, not fully integrated live services.
+Web MVP: **0.2.0**. Feature labels describe prototypes or plans, not fully integrated live services.
