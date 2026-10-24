@@ -7,6 +7,7 @@ A responsive web MVP for learning, entertainment discovery, games, security educ
 - **Home portal:** `index.html` is a standalone responsive interface with feature search and categories.\n- **Store prototype:** `store.html` adds a redesigned responsive storefront, searchable service catalog, functional cart, checkout form, generated demo transaction ID, 10-minute browser countdown, WhatsApp deep-link demo, and AI assistant placeholder.
 - **Catalog:** Search and category filters work in the browser.
 - **Developer & Security Lab:** `developer-tools.html` includes a structured bug-report builder with TXT download, WhatsApp compatibility checklist, phone privacy/anti-spy checklist, JSON validator, text inspector, and demo ID generator. Checklists are manual guidance, not device scans.
+- **Live status page:** `status.html` polls the public GitHub Actions API every 60 seconds and shows recent workflow runs. It reports CI status, not complete production-service health.
 - **Interactive demos:** Local notes, basic phone-number format validation, demo study prompt, and sample bug-report generation.
 - **Not production-ready:** QRIS is a visual placeholder only; no payment is collected or verified. AI replies are demo text. WhatsApp uses a browser deep link, not an automated confirmation system. No backend, authentication, persistent database, payment gateway, webhook, live service APIs, APK packaging, or production monitoring is connected.
 
@@ -36,7 +37,7 @@ A responsive web MVP for learning, entertainment discovery, games, security educ
 
 ### Productivity and developer tools
 - Browser-local notes (demo; stored only in the current browser)
-- AI assistant integration (planned; backend required; keep API keys server-side)
+- AI assistant integration (planned; a secured backend and provider API key are required; never expose API keys in browser code). No live AI is connected yet.
 - API playground for authorized endpoints (planned)
 - Bug report builder with TXT export (local only; no server submission yet)
 - Developer utilities: JSON validation, text inspector, demo IDs
@@ -70,4 +71,4 @@ This project is for lawful, consent-based use. It does not implement DDoS tools,
 
 ## Version
 
-Web MVP: **0.3.0**. Feature labels describe prototypes or plans, not fully integrated live services.
+Web MVP: **0.4.0**. CI runs on pushes and pull requests; a Pages deployment workflow and live GitHub Actions status page have been added. Feature labels describe prototypes or plans, not fully integrated live services.
