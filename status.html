@@ -17,15 +17,16 @@ const API='https://api.github.com/repos/nararyajayautamagroub/Nexovonarsa-SuperA
 const $=id=>document.getElementById(id);
 function date(v){if(!v)return 'Waktu tidak tersedia';return new Date(v).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short',timeZone:'Asia/Jakarta'})+' WIB'}
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-async function load(){ $('refresh').disabled=true;$('state').textContent='Memuat…';try{
- const res=await fetch(API,{headers:{Accept:'application/vnd.github+json'},cache:'no-store'});if(!res.ok)throw Error('GitHub API HTTP '+res.status);
- const data=await res.json();const runs=data.workflow_runs||[];const latest=runs[0];
- $('state').textContent=latest?(latest.status==='completed'?(latest.conclusion==='success'?'CI berhasil':'CI '+latest.conclusion):'Workflow berjalan'):'Belum ada workflow';
- $('state').className='badge '+(latest?.status==='completed'&&latest?.conclusion==='success'?'good':latest?.status==='completed'?'warn':'');
+async function load(){ $('refresh').disabled=true;$('state').textContent='Memuat…';const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),10000);try{
+ const res=await fetch(API,{headers:{Accept:'application/vnd.github+json'},cache:'no-store',signal:controller.signal});if(!res.ok)throw Error('GitHub API HTTP '+res.status);
+ const data=await res.json();if(!data||!Array.isArray(data.workflow_runs))throw Error('Format data GitHub API tidak valid');const runs=data.workflow_runs;const latest=runs[0];
+ const failed=runs.find(r=>r.status==='completed'&&r.conclusion!=='success');const active=runs.find(r=>r.status!=='completed');
+ $('state').textContent=active?'Workflow berjalan':failed?'Ada workflow gagal':'Semua run terbaru berhasil';
+ $('state').className='badge '+(active?'':failed?'warn':'good');
  $('summary').textContent=latest?'Run terakhir: '+latest.name+' · '+latest.status+(latest.conclusion?' / '+latest.conclusion:'')+' · '+date(latest.updated_at):'Belum ada data workflow.';
  $('runs').innerHTML=runs.length?runs.map(r=>'<div class="run"><div class="row"><strong>'+esc(r.name)+'</strong><span class="badge '+(r.conclusion==='success'?'good':r.conclusion==='failure'?'warn':'')+'">'+esc(r.status==='completed'?r.conclusion:r.status)+'</span></div><div class="small muted">'+esc(r.display_title)+' · '+esc(r.head_branch)+' · '+esc(date(r.updated_at))+'</div><a href="'+esc(r.html_url)+'" target="_blank" rel="noopener noreferrer" style="color:#ff92ad">Detail run ↗</a></div>').join(''):'Tidak ada run yang tersedia.';
  $('updated').textContent=date(new Date().toISOString());
- }catch(e){$('state').textContent='Data tidak tersedia';$('state').className='badge warn';$('summary').textContent='Tidak bisa membaca GitHub API saat ini: '+e.message;$('runs').textContent='Riwayat workflow tidak dapat dimuat. Coba lagi nanti.';$('updated').textContent=date(new Date().toISOString());}
- finally{$('refresh').disabled=false}}
+ }catch(e){$('state').textContent='Data tidak tersedia';$('state').className='badge warn';$('summary').textContent='(e.name==='AbortError'?'Permintaan GitHub API melewati batas 10 detik.':'Tidak bisa membaca GitHub API saat ini: '+e.message);$('runs').textContent='Riwayat workflow tidak dapat dimuat. Coba lagi nanti.';$('updated').textContent=date(new Date().toISOString());}
+ finally{clearTimeout(timeout);$('refresh').disabled=false}}
 $('refresh').addEventListener('click',load);load();setInterval(load,60000);
 </script></body></html>
