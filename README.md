@@ -6,6 +6,7 @@ A responsive web MVP for learning, entertainment discovery, games, security educ
 
 - **Home portal:** `index.html` is a standalone responsive interface with feature search and categories.\n- **Store prototype:** `store.html` adds a redesigned responsive storefront, searchable service catalog, functional cart, checkout form, generated demo transaction ID, 10-minute browser countdown, WhatsApp deep-link demo, and AI assistant placeholder.
 - **Catalog:** Search and category filters work in the browser.
+- **Developer & Security Lab:** `developer-tools.html` includes a structured bug-report builder with TXT download, WhatsApp compatibility checklist, phone privacy/anti-spy checklist, JSON validator, text inspector, and demo ID generator. Checklists are manual guidance, not device scans.
 - **Interactive demos:** Local notes, basic phone-number format validation, demo study prompt, and sample bug-report generation.
 - **Not production-ready:** QRIS is a visual placeholder only; no payment is collected or verified. AI replies are demo text. WhatsApp uses a browser deep link, not an automated confirmation system. No backend, authentication, persistent database, payment gateway, webhook, live service APIs, APK packaging, or production monitoring is connected.
 
@@ -37,13 +38,15 @@ A responsive web MVP for learning, entertainment discovery, games, security educ
 - Browser-local notes (demo; stored only in the current browser)
 - AI assistant integration (planned; backend required; keep API keys server-side)
 - API playground for authorized endpoints (planned)
-- Bug reports with generated demo IDs (not uploaded to a server yet)
+- Bug report builder with TXT export (local only; no server submission yet)
+- Developer utilities: JSON validation, text inspector, demo IDs
+- WhatsApp compatibility and anti-spyware checklists (manual, defensive guidance)
 - Service status page (planned)
 - Feedback and help center (planned)
 
 ## Run locally
 
-Open `index.html` in a modern browser. The home page links to `store.html`. No build step is required for this static prototype.
+Open `index.html` in a modern browser. The home page links to `store.html` and `developer-tools.html`. No build step is required for this static prototype.
 
 ## Deploy as a GitHub Pages site
 
@@ -67,4 +70,4 @@ This project is for lawful, consent-based use. It does not implement DDoS tools,
 
 ## Version
 
-Web MVP: **0.2.0**. Feature labels describe prototypes or plans, not fully integrated live services.
+Web MVP: **0.3.0**. Feature labels describe prototypes or plans, not fully integrated live services.
